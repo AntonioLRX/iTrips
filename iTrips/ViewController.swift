@@ -14,6 +14,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         tripsTableView.dataSource = self
         tripsTableView.delegate = self
+        view.backgroundColor = UIColor(
+            red: 30/255, green: 59/255, blue: 119/255, alpha: 1
+        )
+        tripsTableView.separatorInset = .zero
+        tripsTableView.layoutMargins = .zero
+        tripsTableView.sectionHeaderTopPadding = 0
     }
     
     
