@@ -8,7 +8,7 @@
 import UIKit
 
 extension UIView {
-    func addSombra() {
+    func addShadow() {
         layer.shadowColor = UIColor.lightGray.cgColor
         layer.shadowOpacity = 1
         layer.shadowOffset = .zero

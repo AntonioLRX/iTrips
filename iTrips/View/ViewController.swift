@@ -43,17 +43,25 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let tripCell = tableView.dequeueReusableCell(withIdentifier: IDENTIFIER) as? TripTableViewCell else {
+        guard let tripCell = tableView.dequeueReusableCell(withIdentifier: "TripTableViewCell") as? TripTableViewCell else {
             fatalError("Error to create table view cell")
         }
         
-        return tripCell
+        let viewModel = sectionTrips?[indexPath.section]
+        
+        switch viewModel?.type {
+            case .highlights:
+                tripCell.configCell(viewModel?.trips[indexPath.row])
+                return tripCell
+            default:
+                return UITableViewCell()
+        }
     }
 }
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = Bundle.main.loadNibNamed("HomeTableViewHeader", owner: self)?.first as? HomeTableViewHeader
+        guard let headerView = Bundle.main.loadNibNamed("HomeTableViewHeader", owner: nil)?.first as? HomeTableViewHeader else {return nil}
         return headerView
     }
     

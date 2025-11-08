@@ -39,7 +39,9 @@ class TripTableViewCell: UITableViewCell {
             let guests = guestsNumber == 1 ? "Hóspede" : "Hóspedes"
             dailyTripLabel.text = "\(daysNumber) \(daily) - \(guestsNumber) \(guests)"
         }
-        
-        statusCancelTripLabel.text = trip?.cancelamento
+        DispatchQueue.main.async {
+            self.backgroundViewCell.addShadow()
+        }
+        //statusCancelTripLabel.text = trip?.cancelamento
     }
 }
