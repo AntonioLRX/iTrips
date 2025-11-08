@@ -7,22 +7,33 @@
 
 import UIKit
 
+
+
 class ViewController: UIViewController {
     @IBOutlet weak var tripsTableView: UITableView!
+    
+    let IDENTIFIER = "TripTableViewCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tripsTableView.dataSource = self
-        tripsTableView.delegate = self
+        configTableView()
         view.backgroundColor = UIColor(
             red: 30/255, green: 59/255, blue: 119/255, alpha: 1
         )
+        
+    }
+    
+    func configTableView() {
+        tripsTableView.register(
+            UINib(nibName: IDENTIFIER, bundle: nil),
+            forCellReuseIdentifier: IDENTIFIER
+        )
+        tripsTableView.dataSource = self
+        tripsTableView.delegate = self
         tripsTableView.separatorInset = .zero
         tripsTableView.layoutMargins = .zero
         tripsTableView.sectionHeaderTopPadding = 0
     }
-    
-    
     
 }
 
@@ -32,11 +43,11 @@ extension ViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(
-            style: .default, reuseIdentifier: nil
-        )
-        cell.textLabel?.text = "Viagem \(indexPath.row)"
-        return cell
+        guard let tripCell = tableView.dequeueReusableCell(withIdentifier: IDENTIFIER) as? TripTableViewCell else {
+            fatalError("Error to create table view cell")
+        }
+        
+        return tripCell
     }
 }
 
@@ -48,5 +59,9 @@ extension ViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 300
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 400
     }
 }
